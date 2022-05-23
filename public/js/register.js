@@ -28,7 +28,11 @@ regBtn.addEventListener('click', (e) => {
                     }, 3000);
                     break;
                 case "success":
-                    notyf.success(data.message);                    
+                    notyf.success(data.message);
+                    notyf.success("Redirecting to Dashboard");      
+                    setTimeout(() => {
+                        window.location.href = '/dashboard';
+                    }, 2000);
                     break;
                 default:
                     break;
