@@ -1,5 +1,4 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const path = require('path');
 const ejs = require('ejs');
 const env = require('dotenv').config();
@@ -11,15 +10,6 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
-const LINK = process.env.LINK;
-mongoose.connect(LINK, { useNewUrlParser: true, useUnifiedTopology: true }).then(
-    () => {
-        console.log('Connected to database');
-    }
-
-).catch(err => {
-    console.log('Error: ' + err);
-});
 
 
 // Routes

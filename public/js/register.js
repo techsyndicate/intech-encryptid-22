@@ -28,10 +28,7 @@ regBtn.addEventListener('click', (e) => {
                     }, 3000);
                     break;
                 case "success":
-                    notyf.success(data.message);
-                    setTimeout(() => {
-                        window.location.href = '/';
-                    }, 2000);
+                    notyf.success(data.message);                    
                     break;
                 default:
                     break;
