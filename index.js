@@ -17,9 +17,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Routes
 const indexRouter = require('./routes/indexRoute');
 const authRouter = require('./routes/authRoute');
+const dashboardRouter = require('./routes/dashboardRoute')
 
 app.use('/', indexRouter);
 app.use('/', authRouter);
+app.use('/', dashboardRouter);
 
 
 const PORT = process.env.PORT || 5000;
