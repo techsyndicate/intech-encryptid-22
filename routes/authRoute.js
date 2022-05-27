@@ -14,10 +14,11 @@ router.get("/register", checkUser, (req, res) => {
 })
 
 router.post('/auth/reg',async (req,res)=> { 
-    const userId = req.body.userId;
+try {
+    const email = req.body.email;
     const password = req.body.password;
     const cpassword = req.body.cpassword;
-    if (!userId || !password || !cpassword) {
+    if (!email || !password || !cpassword) {
         return res.send({
             status: 'error',
             message: 'Please fill all the fields'
@@ -35,6 +36,12 @@ router.post('/auth/reg',async (req,res)=> {
             "message": "Password must be at least 6 characters long"
         });
     } 
+    else if (email.includes('@') === false) {
+        return res.send({
+            "status": "error",
+            "message": "Please enter a valid email"
+        });
+    }
     else {
         // bcyrpt password
         const salt = await bcrypt.genSalt(10);
@@ -45,9 +52,9 @@ router.post('/auth/reg',async (req,res)=> {
             filter: {
                 and: [ 
                     {
-                        property: 'userId',
+                        property: 'email',
                         title: { 
-                            equals: userId
+                            equals: email
                         }
                     }
                 ]
@@ -60,10 +67,48 @@ router.post('/auth/reg',async (req,res)=> {
             });
         }
         // get details from main db 
-
-        const firstName = "Hello"
-        const lastName = "World"
-        const email = "hello@gmail.com"
+        const db_2_id = process.env.DB_2_ID
+        const Nuser = await notion.databases.query({
+            database_id: db_2_id,
+            filter: {
+                and: [
+                    {
+                        property: 'Email',
+                        rich_text: {
+                            equals: email
+                        }
+                    }
+                ]
+            }
+        })
+        const user = Nuser.results[0]
+        if (Nuser.results.length == 0) {
+            return res.send({
+                "status": "error",
+                "message": "Please register at intech.techsyndicate.us first"
+            });
+        }
+        const dbPass = user.properties.Password.rich_text[0].text.content
+        const name = user.properties.Name.title[0].plain_text
+        const displayName = user.properties.DisplayName.rich_text[0].text.content
+        bcrypt.compare(password, dbPass, (err, result) => {
+            if (err) {
+                return res.send({
+                    "status": "error",
+                    "message": "Something went wrong"
+                });
+            }
+            if (result === true) {
+            }
+            else {
+                return res.send({
+                    "status": "error",
+                    "message": "Password is incorrect. Please ensure it is same as the one provided during inTech registration"
+                });
+            }
+        })
+        
+        
         try { 
             const user = await notion.pages.create({ 
                 parent: { database_id: dbId },
@@ -72,38 +117,21 @@ router.post('/auth/reg',async (req,res)=> {
                         title: [
                             {
                                 text: {
-                                    content: userId
+                                    content: email
                                 }
                             }
                         ]    
                     },
-                    firstName: {
+                    Name: {
                         rich_text: [
                             {
                                 text: {
-                                    content: firstName
+                                    content: name
                                 }
                             }
                         ]
+
                     },
-                    lastName: {
-                        rich_text: [
-                            {
-                                text: {
-                                    content: lastName
-                                }
-                            }
-                        ]
-                    }, 
-                    email: {
-                        rich_text: [
-                            {
-                                text: {
-                                    content: email
-                                }
-                            }
-                        ]
-                    }, 
                     password: {
                         rich_text: [
                             {
@@ -112,19 +140,45 @@ router.post('/auth/reg',async (req,res)=> {
                                 }
                             }
                         ]
+                    },
+                    displayName: {
+                        rich_text: [
+                            {
+                                text: {
+                                    content: displayName
+                                }
+                            }
+                        ]
+                    },
+                    currentLevel: {
+                        rich_text: [
+                            {
+                                text: {
+                                    content: '1'
+                                }
+                            }
+                        ]
+                    },
+                    points: {
+                        rich_text: [
+                            {
+                                text: {
+                                    content: "0"
+                                }
+                            }
+                        ]
                     }
                 }
             }); 
             // jwt auth
             const token = jwt.sign({ 
-                userId: user.id,
+                email: email,
             }, jwt_token)
             res.cookie('token', token)
             req.user= {
-                userId, 
-                firstName,
-                lastName,
-                email
+                email, 
+                name, 
+                displayName
             }
             return res.send({
                 "status": "success",
@@ -137,9 +191,16 @@ router.post('/auth/reg',async (req,res)=> {
                 "message": "Some error occurred"
             })
         }
+    }
+    } catch (err) {
+        console.log(err)
+        return res.send({
+            "status": "error",
+            "message": "Some error occurred"
+        })
     } 
-
 })
+
 
 router.get('/login', checkUser, (req,res)=> { 
     console.log('hello world')
@@ -147,6 +208,7 @@ router.get('/login', checkUser, (req,res)=> {
 })
 
 router.post('/auth/login', async (req,res)=> {
+try {
     const email = req.body.email;
     const password = req.body.password;
     if (!email|| !password) {
@@ -155,6 +217,12 @@ router.post('/auth/login', async (req,res)=> {
             message: 'Please fill all the fields'
         })
     }
+    if (email.includes('@') === false) {
+        return res.send({
+            "status": "error",
+            "message": "Please enter a valid email"
+        });
+    }
     // check if user exists
     const userCheck = await notion.databases.query({
         database_id: dbId,
@@ -162,7 +230,7 @@ router.post('/auth/login', async (req,res)=> {
             and: [
                 {
                     property: 'email',
-                    rich_text: {
+                    title: {
                         equals: email
                     }
                 }
@@ -186,22 +254,35 @@ router.post('/auth/login', async (req,res)=> {
         });
     }
     // jwt auth
-    const userId = user.properties.userId.title[0].text.content
+    // const email = user.properties.email.title[0].text.content
     const token = jwt.sign({
-        userId
+        email
     }, jwt_token)
     res.cookie('token', token)
     req.user= {
-        userId,
-        firstName: user.properties.firstName.value,
-        lastName: user.properties.lastName.value,
-        email: user.properties.email.value
+        name: user.properties.Name.rich_text[0].text.content,
+        email: user.properties.email.title[0].text.content,
+        displayName: user.properties.displayName.rich_text[0].text.content
+
     }
     return res.send({
         "status": "success",
         "message": "User logged in successfully"
     });
+} catch (err) {
+    console.log(err)
+    return res.send({
+        "status": "error",
+        "message": "Some error occurred"
+    })
+}
+})
 
+// logout route
+router.get('/logout', (req,res)=> {
+    res.clearCookie('token')
+    req.user = null
+    res.redirect('/')
 })
 
 module.exports = router

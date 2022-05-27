@@ -3,11 +3,11 @@ const regBtn = document.getElementById('regBtn');
 
 regBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    const userId = document.getElementById('userId').value;
+    const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
     const cpassword = document.getElementById('cpassword').value;
     const data = {
-        userId,
+        email,
         password, 
         cpassword
     }

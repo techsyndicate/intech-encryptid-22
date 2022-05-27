@@ -26,9 +26,9 @@ module.exports = {
                 filter: {
                     and: [
                         {
-                            property: 'userId',
+                            property: 'email',
                             title: {
-                                equals: decoded.userId
+                                equals: decoded.email
                             }
                         }
                     ]
@@ -44,7 +44,11 @@ module.exports = {
                     return res.redirect('/login')
                 }
             }
-            req.user = user.results[0];
+            req.user =  {
+                email: user.results[0].properties.emai.title[0].text.content, 
+                name: user.results[0].properties.name.rich_text[0].text.content,
+                displayName: user.results[0].properties.display_name.rich_text[0].text.content
+            }
             
             if (req.originalUrl === '/register'|| req.originalUrl === '/login') {
                 return res.redirect('/dashboard')
