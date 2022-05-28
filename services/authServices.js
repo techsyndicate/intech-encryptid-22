@@ -4,19 +4,13 @@ const { Client} = require('@notionhq/client');
 const notion = new Client({auth: process.env.NOTION_TOKEN});
 
 module.exports = {
-    checkUser: async (req, res) => {
-        const token = req.cookies.jwt;
+    checkUser: async (req, res, next) => {
+        const token = req.cookies.token;
 
         if (!token) {
+            console.log('no token')
             // check if req is coming from register then redirect to register otherwise login
-            if (req.originalUrl === '/register') {
-                return res.render('register')
-            } else if (req.originalUrl === '/login') {
-                return res.render('login')
-            }
-            else {
-                return res.redirect('/login')
-            }
+            return res.redirect('/login')
 
         }
         try {
@@ -35,36 +29,19 @@ module.exports = {
                 }
             })
             if (!user) {
-                if (req.originalUrl === '/register') {
-                    return res.render('register')
-                } else if (req.originalUrl === '/login') {
-                    return res.render('login')
-                }
-                else {
-                    return res.redirect('/login')
-                }
-            }
-            req.user =  {
-                email: user.results[0].properties.emai.title[0].text.content, 
-                name: user.results[0].properties.name.rich_text[0].text.content,
-                displayName: user.results[0].properties.display_name.rich_text[0].text.content
-            }
-            
-            if (req.originalUrl === '/register'|| req.originalUrl === '/login') {
-                return res.redirect('/dashboard')
-            } else {
-                return next();
-            }
-        }catch (err) {
-            console.log(err)
-            if (req.originalUrl === '/register') {
-                return res.render('register')
-            } else if (req.originalUrl === '/login') {
-                return res.render('login')
-            }
-            else {
+                console.log('no user')
                 return res.redirect('/login')
             }
+
+            req.user =  {
+                email: user.results[0].properties.email.title[0].plain_text, 
+                name: user.results[0].properties.Name.rich_text[0].text.content,
+                displayName: user.results[0].properties.displayName.rich_text[0].text.content
+            }
+            return next()
+        }catch (err) {
+            console.log(err)
+            return res.redirect('/login')
         } 
     } 
 }

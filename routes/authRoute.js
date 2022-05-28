@@ -9,7 +9,7 @@ const {checkUser } = require('../services/authServices')
 const dbId = process.env.NOTION_DB_ID
 const jwt_token = process.env.JWT_TOKEN
 
-router.get("/register", checkUser, (req, res) => {
+router.get("/register", (req, res) => {
  res.render('register')   
 })
 
@@ -202,7 +202,7 @@ try {
 })
 
 
-router.get('/login', checkUser, (req,res)=> { 
+router.get('/login', (req,res)=> { 
     console.log('hello world')
     res.render('login')
 })
