@@ -8,7 +8,7 @@ module.exports = {
         const token = req.cookies.token;
 
         if (!token) {
-            console.log('no token')
+            console.log(' token')
             // check if req is coming from register then redirect to register otherwise login
             return res.redirect('/login')
 
@@ -30,7 +30,7 @@ module.exports = {
             })
             if (!user) {
                 console.log('no user')
-                return res.redirect('/login')
+                return res.redirect('/login')   
             }
 
             req.user =  {
