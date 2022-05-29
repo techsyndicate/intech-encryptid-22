@@ -19,6 +19,7 @@
   "homepage": "https://github.com/ion05/intech-encryptid-22#readme",
   "dependencies": {
     "@notionhq/client": "^1.0.4",
+    "axios": "^0.27.2",
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.6",

@@ -9,7 +9,7 @@ const {checkUser } = require('../services/authServices')
 const dbId = process.env.NOTION_DB_ID
 const jwt_token = process.env.JWT_TOKEN
 
-router.get("/register", (req, res) => {
+router.get("/register",  (req, res) => {
  res.render('register')   
 })
 
@@ -167,6 +167,16 @@ try {
                                 }
                             }
                         ]
+                    },
+                    isAdmin: {
+                        checkbox: {
+                            checked: false
+                        }
+                    },
+                    isBanned: {
+                        checkbox: {
+                            checked: false
+                        }
                     }
                 }
             }); 
