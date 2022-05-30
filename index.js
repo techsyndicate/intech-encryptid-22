@@ -24,11 +24,12 @@ momngoose.connect(link, { useNewUrlParser: true, useUnifiedTopology: true }).the
 const indexRouter = require('./routes/indexRoute');
 const authRouter = require('./routes/authRoute');
 const dashboardRouter = require('./routes/dashboardRoute')
+const adminRouter = require('./routes/adminRoute')
 
 app.use('/', indexRouter);
 app.use('/', authRouter);
 app.use('/', dashboardRouter);
-
+app.use(adminRouter)
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
