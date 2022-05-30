@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Answer Log</title>
+</head>
+
+<body>
+    <h1>Answer Log</h1>
+
+    <% for( let i = 0; i < answers.length; i++ ) { %>
+    <div>
+        <h3>Answer: <%= answers[i].answer %></h3>
+        <h3>Level: <%= answers[i].level %></h3>
+        <h3>IsCorrect: <%= answers[i].isCorrect %></h3>
+        <h3> User : <%= answers[i].userEmail %> </h3>
+        <h3>Time: <%= answers[i].createdAt %></h3>
+    </div>
+    <% } %>
+</body>
+
+</html>

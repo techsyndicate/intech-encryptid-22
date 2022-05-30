@@ -1,10 +1,11 @@
 const express = require('express');
-const { checkUser } = require('../services/authServices');
+const { checkUser, isAdmin } = require('../services/authServices');
 const router = express.Router();
 const { Client } = require('@notionhq/client');
 const notion = new Client({ auth: process.env.NOTION_TOKEN });
 const axios = require('axios');
 const { updatePage } = require('@notionhq/client/build/src/api-endpoints');
+const Answer = require('../schema/answerSchema');
 
 
 router.get('/dashboard',checkUser, async (req,res)=> {
@@ -81,6 +82,13 @@ try {
     const correctAnswer = canswer.results[0].properties.answer.rich_text[0].text.content;
     const isCorrect = answer === correctAnswer;
     if (!isCorrect) {
+        const newAnswer = new Answer({ 
+            answer: answer,
+            userEmail: req.user.email,
+            level: level, 
+            isCorrect: false
+        })
+        await newAnswer.save();
         console.log("wrong")
         return res.send({
             status: 'wrong',
@@ -131,7 +139,13 @@ try {
             
             }
     })
-
+    const newAnswer = new Answer({
+        answer: answer,
+        userEmail: req.user.email,
+        level: level,
+        isCorrect: true
+    })
+    await newAnswer.save();
     return res.send({
         status: 'success',
         message: 'Answer is correct'
@@ -144,6 +158,12 @@ try {
         message: 'Something went wrong'
     })
 }
+})
+
+router.get('/answers', checkUser, isAdmin, async (req, res)=> {  
+  const answers = await Answer.find({})
+  console.log(answers)
+    res.render('admin/answers', {answers})
 })
 
 
