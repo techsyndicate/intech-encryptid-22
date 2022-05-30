@@ -6,23 +6,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+    <link rel="stylesheet" href="css/dashboard.css">
     <title>Dashboard</title>
 </head>
 
 <body>
-    <h1>Question <%= level.level.rich_text[0].text.content      %> </h1>
+    <h1>Level <span> #<%= level.level.rich_text[0].text.content%> </span>
+    </h1>
 
-    <p> Q: <%= level.question.rich_text[0].text.content %> </p>
+    <p class="ques"> <%= level.question.rich_text[0].text.content %> </p>
     <% if (level.image.rich_text[0]) { %>
     <p> <img src="<%= level.image.rich_text[0].text.content  %> "> </p>
     <% } %>
     <% if (level.file.rich_text[0]) { %>
     <p> <a href="<%= level.file.rich_text[0].text.content%>">Hello</a> </p>
     <% } %>
-    <h2>Answer</h2>
     <form id="ansForm">
         <input name="level" id="level" value="<%= level.level.rich_text[0].text.content %>" hidden>
-        <input type="text" name="answer" id="answer" required autocomplete="off" placeholder="Answer">
+        <input type="text" name="answer" id="answer" required autocomplete="off" placeholder="Answer"> <br>
         <button type="submit" id="subBtn">Submit</button>
     </form>
 </body>
