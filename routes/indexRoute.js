@@ -11,6 +11,22 @@ router.get('/leaderboard', async (req,res)=> {
     const dbId = process.env.NOTION_DB_ID
     const usersN = await notion.databases.query({
         database_id: dbId,
+        filter: {
+            and: [
+                {
+                    property: 'isAdmin',
+                    checkbox: {
+                        equals: false
+                    }
+                },
+                {
+                    property: "isBanned", 
+                    checkbox: {
+                        equals: false
+                    }
+                }
+            ]
+        },
         sorts: [
             {
                 property: 'points',
@@ -28,6 +44,10 @@ router.get('/leaderboard', async (req,res)=> {
         }
     })
     res.render('leaderboard', {users})
+})
+
+router.get('/banned', (req,res) => { 
+    res.render('banned')
 })
 
 module.exports= router;
