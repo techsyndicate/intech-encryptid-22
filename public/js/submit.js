@@ -45,6 +45,11 @@ subBtn.addEventListener("click",  (e) => {
                         window.location.href = '/dashboard';
                     }, 3000);
                     break;
+                case 'over': 
+                    notyf.success('Congrats! You have completed the hunt');
+                    setTimeout(() => {
+                        window.location.href = '/finish';
+                    }, 3000);
                 default:
                     break;
             }

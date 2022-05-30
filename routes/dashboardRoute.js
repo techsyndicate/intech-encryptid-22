@@ -22,6 +22,7 @@ router.get('/dashboard',checkUser, async (req,res)=> {
     //     return res.render('post/dashboard')
     // } 
     const userEmail = req.user.email;
+    
     const levelId = process.env.DB_3_ID 
     const userDbId = process.env.NOTION_DB_ID
     const userN = await notion.databases.query({
@@ -60,7 +61,7 @@ router.get('/dashboard',checkUser, async (req,res)=> {
 router.post('/submit', checkUser, async (req,res)=> {
 try {
 
-
+    const maxLevel = process.env.MAX_LEVEL
     const levelId = process.env.DB_3_ID
     const userDbId= process.env.NOTION_DB_ID
     const answer = req.body.answer.replace(/\s/g, '');
@@ -113,8 +114,15 @@ try {
     
     const currentLevel = user1.properties.currentLevel.rich_text[0].text.content
     const currentPoints = user1.properties.points.rich_text[0].text.content
+    if (currentLevel == maxLevel) {
+        console.log('It is over')
+        return res.send({  
+            status: 'over'
+        })
+    }
     const nextLevel = parseInt(currentLevel) + 1
     const nextPoints = parseInt(currentPoints) + 100
+
     const updateN  = await notion.pages.update({
         page_id: user1.id,
         properties: {
@@ -166,5 +174,8 @@ router.get('/answers', checkUser, isAdmin, async (req, res)=> {
     res.render('admin/answers', {answers})
 })
 
+router.get('/finish', checkUser, (req,res)=> { 
+    res.render('finish')
+})
 
 module.exports = router;
