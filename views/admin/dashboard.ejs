@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/admin.css">
     <title>Admin Dashboard</title>
 </head>
 
@@ -12,22 +13,23 @@
     <h1>Users</h1>
 
     <% for( let i = 0; i < users.length; i++ ) { %>
-    <p> Name: <%= users[i].name %> </p>
-    <p> Display Name: <%= users[i].displayName %> </p>
-    <p> Email: <%= users[i].email %> </p>
-    <p> Points: <%= users[i].points %> </p>
-    <p> Banned: <%= users[i].isBanned %> </p>
+    <div class="user">
+        <p> <span>Name: </span> <%= users[i].name %> </p>
+        <p> <span>Display Name: </span><%= users[i].displayName %> </p>
+        <p> <span>Email: </span><%= users[i].email %> </p>
+        <p> <span>Points: </span> <%= users[i].points %> </p>
+        <p> <span>Banned: </span> <%= users[i].isBanned %> </p>
 
-    <br>
-    <form action="/admin/ban" method="post">
-        <input type="hidden" name="email" value="<%= users[i].email %>">
-        <button type="submit">Ban</button>
-    </form>
-    <br>
-    <form action="/admin/unban" method="post">
-        <input type="hidden" name="email" value="<%= users[i].email %>">
-        <button type="submit">Unban</button>
-    </form>
+        <br>
+        <form action="/admin/ban" method="post">
+            <input type="hidden" name="email" value="<%= users[i].email %>">
+            <button type="submit">Ban</button>
+        </form>
+        <form action="/admin/unban" method="post">
+            <input type="hidden" name="email" value="<%= users[i].email %>">
+            <button type="submit">Unban</button>
+        </form>
+    </div>
     <% } %>
 </body>
 
