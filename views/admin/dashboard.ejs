@@ -29,6 +29,8 @@
             <input type="hidden" name="email" value="<%= users[i].email %>">
             <button type="submit">Unban</button>
         </form>
+        <form action="/answers/user/<%= users[i].email %>" method="get">
+            <button type="submit">View Answers</button>
     </div>
     <% } %>
 </body>

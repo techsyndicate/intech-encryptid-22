@@ -118,4 +118,12 @@ router.get('/answers/level/:level', checkUser, isAdmin, async (req,res)=> {
     res.render('admin/answers', {answers})
 })
 
+router.get('/answers/user/:userEmail', checkUser, isAdmin, async (req,res)=> {
+    const answers = await Answer.find({
+        userEmail: req.params.userEmail
+    })
+    console.log(answers)
+    res.render('admin/answers', {answers})
+})
+
 module.exports = router;
