@@ -10,6 +10,14 @@
 
 <body>
     <h1>Leaderboard</h1>
+
+    <% for( let i = 0; i < users.length; i++ ) { %>
+    <p> Rank: <%= i +1 %> </p>
+    <p> User: <%= users[i].displayName %> </p>
+    <p> Points: <%= users[i].points %> </p>
+    <br>
+    <hr>
+    <% } %>
 </body>
 
 </html>
