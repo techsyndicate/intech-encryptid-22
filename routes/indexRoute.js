@@ -4,7 +4,7 @@ const {Client} = require('@notionhq/client');
 const notion = new Client({auth: process.env.NOTION_TOKEN});
 
 router.get("/", (req, res) => {
-    res.render("index");
+    res.render("index",{userLog: req.user});
 })
 
 router.get('/leaderboard', async (req,res)=> { 
@@ -43,7 +43,7 @@ router.get('/leaderboard', async (req,res)=> {
             currentLevel: user.properties.currentLevel.rich_text[0].text.content,
         }
     })
-    res.render('leaderboard', {users})
+    res.render('leaderboard', {users,userLog: req.user})
 })
 
 router.get('/banned', (req,res) => { 

@@ -12,18 +12,21 @@
 
 <body>
 
+    <%- include('./partials/nav.ejs') %>
 
-    <h1>Register</h1>
-
-    <form id="regForm">
-        <label for="email"> Email </label> <br>
-        <input name="email" id="email" type="email" autocomplete="off" required placeholder="john.doe@ais.amity.edu"> <br>
-        <label for="password">Password:</label> <br>
-        <input name="password" id="password" type="password" autocomplete="off" required placeholder="At least 6 characters"> <br>
-        <label for="cpassword">Confirm Password:</label> <br>
-        <input name="cpassword" id="cpassword" type="password" autocomplete="off" required placeholder=""> <br>
-        <button type="submit" id="regBtn">Register</button> <br>
-    </form>
+    
+    <div class="register-div">
+        <h1>Register</h1>
+        <form id="regForm">
+            <label for="email"> Email </label> <br>
+            <input name="email" id="email" type="email" autocomplete="off" required placeholder="john.doe@ais.amity.edu"> <br>
+            <label for="password">Password:</label> <br>
+            <input name="password" id="password" type="password" autocomplete="off" required placeholder="At least 6 characters"> <br>
+            <label for="cpassword">Confirm Password:</label> <br>
+            <input name="cpassword" id="cpassword" type="password" autocomplete="off" required placeholder="Confirm Password"> <br>
+            <button type="submit" id="regBtn">Register</button> <br>
+        </form>
+    </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
 <script type="module" src="js/register.js"></script>

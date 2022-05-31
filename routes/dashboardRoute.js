@@ -55,7 +55,7 @@ router.get('/dashboard',checkUser, banCheck, async (req,res)=> {
     })  
     const level = levelN.results[0].properties
     
-    res.render('dashboard', {level});
+    res.render('dashboard', {level,userLog: req.user});
 })
 
 router.post('/submit', checkUser, banCheck, async (req,res)=> {

@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap');
+body{
+    background: black;
+    font-family: 'Outfit', sans-serif;
+}
+
+.landing-div{
+    display: flex;
+    margin-top: 2vw;
+}
+.landing-div img{
+    transform: scale(0.75);
+    justify-content: flex-end;
+    align-items: center;
+    margin-left: auto;
+}
+.countdown-div{
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 3.5vw;
+    margin-left: 5vw;
+}
+.landing-div .countdown-div h2{
+    font-size: 3.5vw;
+    text-transform: uppercase;
+    letter-spacing: 7.75px;
+    color: #eee;
+    margin-left: 1vw;
+    margin-top: 2.5vw;
+}
+.countdown-div .countdown {
+    color: #eee;
+    font-size: 1vw;
+    font-weight: 500;
+    justify-content: space-between;
+    display: flex;
+    list-style-type: none;
+    padding: 1vw;
+    width: 85%;
+    margin-right: auto;
+    margin-top: -2.5vw;
+}
+.countdown li{
+    text-align: center;
+}
+
+.countdown li span{
+    font-size: 4.4vw;
+    font-weight: 600;
+    letter-spacing: 1.25px;
+}
+.button-panel{
+    margin-left: 1.25vw;
+}
+.button-panel button{
+    padding-left: 2vw;
+    cursor: pointer;
+    padding-right: 2vw;
+}

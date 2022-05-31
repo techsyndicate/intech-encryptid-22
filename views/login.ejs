@@ -11,14 +11,19 @@
 </head>
 
 <body>
-    <h1>Login</h1>
-    <form id="logForm">
-        <label for="email"> Email </label> <br>
-        <input name="email" id="email" type="email" autocomplete="off" required placeholder="john.doe@ais.amity.edu"> <br>
-        <label for="password">Password:</label> <br>
-        <input name="password" id="password" type="password" autocomplete="off" required> <br>
-        <button type="submit" id="logBtn">Login</button> <br>
-    </form>
+    <%- include('./partials/nav.ejs') %>
+
+    <div class="login-div">
+        <h1>Login</h1>
+        <form id="logForm">
+            <label for="email"> Email </label> <br>
+            <input name="email" id="email" type="email" autocomplete="off" required placeholder="john.doe@ais.amity.edu"> <br>
+            <label for="password">Password:</label> <br>
+            <input name="password" id="password" type="password" placeholder="john1234" autocomplete="off" required> <br>
+            <button type="submit" id="logBtn">Login</button> <br>
+        </form>
+    </div>
+    
 </body>
 <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
 <script src="js/login.js"></script>

@@ -11,7 +11,7 @@ const Answer = require('../schema/answerSchema');
 router.get('/answers', checkUser, isAdmin, async (req, res)=> {  
     const answers = await Answer.find({})
     console.log(answers)
-      res.render('admin/answers', {answers})
+      res.render('admin/answers', {answers,userLog: req.user})
   })
 
 router.get('/finish', checkUser,banCheck, (req,res)=> { 
@@ -45,7 +45,7 @@ try {
     })
     console.log(users)
 
-    res.render('admin/dashboard' , {users})
+    res.render('admin/dashboard' , {users,userLog: req.user})
 } catch (err) {
     console.log(err)
     res.render('error')

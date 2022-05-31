@@ -10,6 +10,7 @@
 </head>
 
 <body>
+    <%- include('../partials/nav.ejs') %>
     <h1>Users</h1>
 
     <% for( let i = 0; i < users.length; i++ ) { %>
@@ -21,16 +22,20 @@
         <p> <span>Banned: </span> <%= users[i].isBanned %> </p>
 
         <br>
-        <form action="/admin/ban" method="post">
-            <input type="hidden" name="email" value="<%= users[i].email %>">
-            <button type="submit">Ban</button>
-        </form>
-        <form action="/admin/unban" method="post">
-            <input type="hidden" name="email" value="<%= users[i].email %>">
-            <button type="submit">Unban</button>
-        </form>
-        <form action="/answers/user/<%= users[i].email %>" method="get">
-            <button type="submit">View Answers</button>
+        <div style="display: flex;">
+            <form action="/admin/ban" method="post">
+                <input type="hidden" name="email" value="<%= users[i].email %>">
+                <button type="submit">Ban</button>
+            </form>
+            <form action="/admin/unban" method="post">
+                <input type="hidden" name="email" value="<%= users[i].email %>">
+                <button type="submit">Unban</button>
+            </form>
+            <form action="/answers/user/<%= users[i].email %>" method="get">
+                <button type="submit">View Answers</button>
+            </form>
+        </div>
+
     </div>
     <% } %>
 </body>

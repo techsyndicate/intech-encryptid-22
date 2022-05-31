@@ -6,10 +6,52 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Encryptid</title>
+    <link rel="stylesheet" href="./css/index.css">
 </head>
 
 <body>
-    <h1>Encryptid</h1>
+    <%- include('./partials/nav.ejs') %>
+    <div class="landing-div">
+        <div class="countdown-div">
+            <h2>
+                coming soon!
+            </h2>
+            <ul class="countdown">
+                <li><p>days</p><span id="days"></span></li>
+                <li><p>hrs</p><span id="hrs"></span></li>
+                <li><p>mins</p><span id="mins"></span></li>
+                <li style="color: #16e16e;"><p>sec</p><span id="secs"></span></li>
+            </ul>
+            <div class="button-panel">
+                <button>
+                    FAQ
+                </button>
+                <button>
+                    Rules
+                </button>
+            </div>
+        </div>
+        <img src="./assets/encryptid.png" alt="encryptid img">
+    </div>
 </body>
-
+<script>
+//countdown
+var countDownDate = new Date("Jul 7, 2022 00:00:00").getTime();
+var x = setInterval(function() {
+    var now = new Date().getTime();
+    var distance = countDownDate - now;
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    document.getElementById("days").innerHTML = days;
+    document.getElementById("hrs").innerHTML = hours;
+    document.getElementById("mins").innerHTML = minutes;
+    document.getElementById("secs").innerHTML = seconds;
+    if (distance < 0) {
+        clearInterval(x);
+        console.log("done");
+    }
+}, 1000);
+</script>
 </html>
