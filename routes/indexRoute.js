@@ -2,12 +2,15 @@ const express = require('express');
 const router = express.Router();
 const {Client} = require('@notionhq/client');
 const notion = new Client({auth: process.env.NOTION_TOKEN});
+const { SendMessage } = require('../services/errorReporting');
 
 router.get("/", (req, res) => {
     res.render("index",{userLog: req.user});
 })
 
 router.get('/leaderboard', async (req,res)=> { 
+try {
+
     const dbId = process.env.NOTION_DB_ID
     const usersN = await notion.databases.query({
         database_id: dbId,
@@ -44,6 +47,12 @@ router.get('/leaderboard', async (req,res)=> {
         }
     })
     res.render('leaderboard', {users,userLog: req.user})
+} catch (err) {
+    console.log(err)
+    SendMessage(err.stack.toString())
+    SendMessage('The server has crashed')
+    res.redirect('/')
+}
 })
 
 router.get('/banned', (req,res) => { 

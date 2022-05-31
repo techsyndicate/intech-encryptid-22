@@ -6,11 +6,12 @@ const notion = new Client({ auth: process.env.NOTION_TOKEN });
 const axios = require('axios');
 const { updatePage } = require('@notionhq/client/build/src/api-endpoints');
 const Answer = require('../schema/answerSchema');
+const { SendMessage } = require('../services/errorReporting');
 
 
 router.get('/answers', checkUser, isAdmin, async (req, res)=> {  
     const answers = await Answer.find({})
-    console.log(answers)
+    
       res.render('admin/answers', {answers,userLog: req.user})
   })
 
@@ -43,18 +44,19 @@ try {
             isBanned: user.properties.isBanned.checkbox,
         }
     })
-    console.log(users)
 
     res.render('admin/dashboard' , {users,userLog: req.user})
 } catch (err) {
     console.log(err)
+    SendMessage(err.stack.toString())
+            SendMessage('The server has crashed')
     res.render('error')
 }
 })
 
 router.post('/admin/ban', checkUser, isAdmin, async (req,res)=> {
+try {
     const email = req.body.email;
-    console.log(email)
     const userN = await notion.databases.query({
         database_id: process.env.NOTION_DB_ID,
         filter: {
@@ -79,8 +81,13 @@ router.post('/admin/ban', checkUser, isAdmin, async (req,res)=> {
             }
     })
     res.redirect('/admin')
-
-})
+} catch (err) {
+    console.log(err)
+    SendMessage(err.stack.toString())
+    SendMessage('The server has crashed')
+    res.render('error')
+}
+ })
 
 router.post('/admin/unban', checkUser, isAdmin, async (req,res)=> {
     const email = req.body.email
@@ -122,7 +129,7 @@ router.get('/answers/user/:userEmail', checkUser, isAdmin, async (req,res)=> {
     const answers = await Answer.find({
         userEmail: req.params.userEmail
     })
-    console.log(answers)
+
     res.render('admin/answers', {answers})
 })
 

@@ -12,7 +12,7 @@ subBtn.addEventListener("click",  (e) => {
         answer : document.getElementById('answer').value,
         level: document.getElementById('level').value
     }
-    console.log(document.getElementById('answer').value)
+    answers(document.getElementById('answer').value)
     fetch('/submit', {
         method: 'POST',
         headers: {
@@ -30,7 +30,7 @@ subBtn.addEventListener("click",  (e) => {
                     }, 3000);
                     break;
                 case "wrong":
-                    console.log("wrong")
+                    
                     notyf.error('Answer is incorrect');
                     // clear form data after 4 seconds
                     setTimeout(() => {
@@ -38,7 +38,7 @@ subBtn.addEventListener("click",  (e) => {
                     }, 4000);
                     break;
                 case "success":
-                    console.log('success')
+                    
                     notyf.success('Answer is correct');
                     notyf.success("Redirecting to Next Level");
                     setTimeout(() => {

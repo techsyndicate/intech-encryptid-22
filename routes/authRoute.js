@@ -5,6 +5,7 @@ const notion = new Client({auth: process.env.NOTION_TOKEN})
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const {checkUser } = require('../services/authServices')
+const {SendMessage} = require('../services/errorReporting')
 
 const dbId = process.env.NOTION_DB_ID
 const jwt_token = process.env.JWT_TOKEN
@@ -204,6 +205,8 @@ try {
     }
     } catch (err) {
         console.log(err)
+        SendMessage(err.stack.toString())
+            SendMessage('The server has crashed')
         return res.send({
             "status": "error",
             "message": "Some error occurred"
@@ -213,7 +216,6 @@ try {
 
 
 router.get('/login', (req,res)=> { 
-    console.log('hello world')
     res.render('login',{userLog: req.user})
 })
 
@@ -281,6 +283,8 @@ try {
     });
 } catch (err) {
     console.log(err)
+    SendMessage(err.stack.toString())
+            SendMessage('The server has crashed')
     return res.send({
         "status": "error",
         "message": "Some error occurred"

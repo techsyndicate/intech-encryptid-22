@@ -6,9 +6,12 @@ const notion = new Client({ auth: process.env.NOTION_TOKEN });
 const axios = require('axios');
 const { updatePage } = require('@notionhq/client/build/src/api-endpoints');
 const Answer = require('../schema/answerSchema');
+const {SendMessage} = require('../services/errorReporting');
 
 
 router.get('/dashboard',checkUser, banCheck, async (req,res)=> {
+try {
+
     // check if current date is before 7th june 
     const today = new Date();
     const startDate = new Date(2021, 6,7);
@@ -56,6 +59,12 @@ router.get('/dashboard',checkUser, banCheck, async (req,res)=> {
     const level = levelN.results[0].properties
     
     res.render('dashboard', {level,userLog: req.user});
+} catch (e) {
+    console.log(e)
+    SendMessage(err.stack.toString())
+    SendMessage('The server has crashed')
+    res.redirect('/')
+}
 })
 
 router.post('/submit', checkUser, banCheck, async (req,res)=> {
@@ -90,7 +99,6 @@ try {
             isCorrect: false
         })
         await newAnswer.save();
-        console.log("wrong")
         return res.send({
             status: 'wrong',
             message: 'Answer is incorrect'
@@ -115,7 +123,6 @@ try {
     const currentLevel = user1.properties.currentLevel.rich_text[0].text.content
     const currentPoints = user1.properties.points.rich_text[0].text.content
     if (currentLevel == maxLevel) {
-        console.log('It is over')
         return res.send({  
             status: 'over'
         })
@@ -161,6 +168,8 @@ try {
 
 } catch (err) {
     console.log(err)
+    SendMessage(err.stack.toString())
+            SendMessage('The server has crashed')
     return res.send({
         status: 'error',
         message: 'Something went wrong'

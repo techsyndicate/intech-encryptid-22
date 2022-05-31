@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 const jwt_token = process.env.JWT_TOKEN;
 const { Client} = require('@notionhq/client');
 const notion = new Client({auth: process.env.NOTION_TOKEN});
+const { SendMessage } = require('../services/errorReporting');
 
 module.exports = {
     checkUser: async (req, res, next) => {
@@ -39,6 +40,8 @@ module.exports = {
             return next()
         }catch (err) {
             console.log(err)
+            SendMessage(err.stack.toString())
+            SendMessage('The server has crashed')
             return res.redirect('/login')
         } 
     },
@@ -75,6 +78,8 @@ module.exports = {
             return res.redirect('/dashboard')
         }catch (err) {
             console.log(err)
+            SendMessage(err.stack.toString())
+            SendMessage('The server has crashed')
             return res.redirect('/login')
         } 
     }, 
@@ -110,6 +115,8 @@ module.exports = {
             return res.redirect('/banned')
         }catch (err) {
             console.log(err)
+            SendMessage(err.stack.toString())
+            SendMessage('The server has crashed')
             return res.redirect('/login')
         } 
     
