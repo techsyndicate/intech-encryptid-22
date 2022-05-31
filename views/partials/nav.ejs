@@ -58,10 +58,12 @@ button{
         </a>
     </div>
     <div class="nav-links">
-        <a href="/leaderboard">Leaderboard</a>
+        
         <% if (userLog) {%>
-            <button onclick="button3()" style="margin-top: -.25vw;">Logout</button>
+            <a href="/dashboard">Dashboard</a>
+            <a href="/user" >Profile</a>
         <%}else{%>
+        <a href="/leaderboard">Leaderboard</a>
         <button onclick="button1()">Register</button>
         <button onclick="button2()">Login</button>
         <% } %>

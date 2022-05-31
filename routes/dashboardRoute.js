@@ -176,5 +176,33 @@ try {
 }
 })
 
+router.get('/user', checkUser, banCheck, async (req,res)=> {
+    try {
+        const userDbId= process.env.NOTION_DB_ID
+        const userN = await notion.databases.query({
+            database_id: userDbId,
+            filter: {
+                and: [
+                    {
+                        property: 'email',
+                        title: {
+                            equals: req.user.email
+                        }
+                    }
+                ]
+            }
+        })
+        const user1 = userN.results[0]
+        
+        const currentLevel = user1.properties.currentLevel.rich_text[0].text.content
+        const currentPoints = user1.properties.points.rich_text[0].text.content
+        res.render('user', {userLog: req.user, currentLevel, currentPoints})
+    } catch (e) {
+        console.log(e)
+        SendMessage(err.stack.toString())
+        SendMessage('The server has crashed')
+        res.redirect('/')
+    }
 
+})
 module.exports = router;
