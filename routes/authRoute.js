@@ -10,7 +10,7 @@ const dbId = process.env.NOTION_DB_ID
 const jwt_token = process.env.JWT_TOKEN
 
 router.get("/register",  (req, res) => {
- res.render('register')   
+ res.render('register',{userLog: req.user})   
 })
 
 router.post('/auth/reg',async (req,res)=> { 
@@ -214,7 +214,7 @@ try {
 
 router.get('/login', (req,res)=> { 
     console.log('hello world')
-    res.render('login')
+    res.render('login',{userLog: req.user})
 })
 
 router.post('/auth/login', async (req,res)=> {
