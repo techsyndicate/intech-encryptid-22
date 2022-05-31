@@ -2,11 +2,11 @@
 
 body {
     background-color: black;
-    margin-left: 5vw;
-    padding-top: 2vw;
     font-family: 'Outfit', sans-serif;
 }
-
+.dashboard{
+    margin-left: 5vw;
+}
 h1 {
     font-family: 'Outfit', sans-serif;
     font-size: 3rem;

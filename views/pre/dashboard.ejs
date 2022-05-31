@@ -8,8 +8,24 @@
     <title>Dashboard</title>
 </head>
 
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+    body {
+        background-color: black;
+        font-family: 'Outfit', sans-serif;
+    }
+    h1{
+        color: white;
+        font-size: 3.5vw;
+        text-align: center;
+        margin-top: 10vw;
+    }
+</style>
 <body>
-    <h1>The event hasnt started yet. </h1>
+    <%- include('../partials/nav.ejs') %>
+
+    <H1>The event will start soon.</H1>
 </body>
 
 </html>

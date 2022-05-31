@@ -46,51 +46,26 @@ body {
     outline: none;
     border-bottom: 2px solid #16e16e;
 }
-/* 
-h1 {
-    
-    font-size: 3rem;
-    font-weight: 600;
-    color: #16e16e;
-    margin-top: 2vw;
-    margin-bottom: 5vw;
-}
-
-
-
-label {
-    color: #16e16e;
-    font-size: 1.5vw;
-    font-family: 'Outfit', sans-serif;  
-    margin-bottom: 2vw;    
-}
-
-
-
-input {
-    height: 1.5vh;
-    width: 30vw;
-    border-radius: 5px;
-    padding: 1vw;
-    margin-top:1.3vw;
-    margin-bottom:1.3vw;
-    background-color: #000;
-    border: #2C2A2A solid 2px;
-    font-size: 1rem;
-    color: #fff;
-    font-family: 'Outfit', sans-serif;
-
-}
-
-button {
-    margin-top: 15px;
-    width: 15vw !important;
-    padding-top: 1vw;
-    padding-bottom: 1vw;
-    background-color: #16e16e;
-    font-size: 1.5rem;
-    border-radius: 10px;
-    font-family: 'Outfit', sans-serif;
-    cursor: pointer;
-    font-weight: 400;
-} */
+.loader{
+    height: 2.5vw;
+    width: 2.5vw;
+    border-top: 2px solid #eee;
+    border-left: 2px solid #eee;
+    border-radius: 100%;
+    animation: roll 2s ease;
+    transition: all 2s ease;
+    margin-left: auto;
+    animation-iteration-count: infinite;
+    margin-right: auto;
+  }
+  @keyframes roll {
+    0%{
+      transform: rotate(0deg);
+    }
+    50%{
+      transform: rotate(180deg);
+    }
+    100%{
+      transform: rotate(360deg);
+    }
+  }

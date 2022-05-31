@@ -30,5 +30,16 @@
 </body>
 <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
 <script type="module" src="js/register.js"></script>
-
+<script>
+    var button = document.querySelector('#regBtn')
+    function load(){
+        this.disabled= true;
+        this.innerHTML = `
+            <div class="loader">
+            </div>
+        `
+        this.style.cursor="not-allowed";
+    }
+    button.addEventListener('click', load)
+</script>
 </html>

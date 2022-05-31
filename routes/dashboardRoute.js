@@ -13,16 +13,15 @@ router.get('/dashboard',checkUser, banCheck, async (req,res)=> {
 try {
 
     // check if current date is before 7th june 
-    const today = new Date();
-    const startDate = new Date(2021, 6,7);
-    const endDate = new Date(2021,6,8);
-    // TODO: uncomment this before hunt starts
+    // const today = new Date();
+    // const startDate = new Date(2021, 6,7);
+    // const endDate = new Date(2021,6,8);
     // if (today < startDate) { 
     //     console.log('before')
-    //     return res.render('pre/dashboard')
+    //     return res.render('pre/dashboard' ,{userLog: req.user})
     // } else if (today > endDate) {
     //     console.log('after')
-    //     return res.render('post/dashboard')
+    //     return res.render('post/dashboard',{userLog: req.user})
     // } 
     const userEmail = req.user.email;
     
