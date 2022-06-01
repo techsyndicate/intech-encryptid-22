@@ -16,7 +16,7 @@ router.get('/answers', checkUser, isAdmin, async (req, res)=> {
   })
 
 router.get('/finish', checkUser,banCheck, (req,res)=> { 
-    res.render('finish')
+    res.render('finish',{userLog: req.user})
 })
 
 router.get("/admin", checkUser, isAdmin, async (req,res)=> { 
@@ -50,7 +50,7 @@ try {
     console.log(err)
     SendMessage(err.stack.toString())
             SendMessage('The server has crashed')
-    res.render('error')
+    res.render('error',{userLog:req.user})
 }
 })
 
@@ -85,7 +85,7 @@ try {
     console.log(err)
     SendMessage(err.stack.toString())
     SendMessage('The server has crashed')
-    res.render('error')
+    res.render('error',{userLog: req.user})
 }
  })
 
@@ -122,7 +122,7 @@ router.get('/answers/level/:level', checkUser, isAdmin, async (req,res)=> {
         level: req.params.level
     })
     
-    res.render('admin/answers', {answers})
+    res.render('admin/answers', {answers,userLog: req.user})
 })
 
 router.get('/answers/user/:userEmail', checkUser, isAdmin, async (req,res)=> {
@@ -130,7 +130,7 @@ router.get('/answers/user/:userEmail', checkUser, isAdmin, async (req,res)=> {
         userEmail: req.params.userEmail
     })
 
-    res.render('admin/answers', {answers})
+    res.render('admin/answers', {answers,userLog: req.user})
 })
 
 module.exports = router;
