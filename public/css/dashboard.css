@@ -6,6 +6,7 @@ body {
 }
 .dashboard{
     margin-left: 5vw;
+    margin-top: -3.5vw;
 }
 h1 {
     font-family: 'Outfit', sans-serif;
@@ -52,4 +53,18 @@ button {
     cursor: pointer;
     font-weight: 400;
     border:none;
+}
+.dashboard img{
+    width: 25vw;
+    height: 20vw;
+}
+#ansForm{
+    margin-top: 1.5vw;
+}
+.file{
+    text-decoration: none;
+    color: #16e16e;
+    font-size: 1.25vw;
+    font-weight: 500;
+    letter-spacing: 1.2px;
 }

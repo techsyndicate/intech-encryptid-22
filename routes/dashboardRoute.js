@@ -56,7 +56,7 @@ try {
         }
     })  
     const level = levelN.results[0].properties
-    
+    console.log(level)
     res.render('dashboard', {level,userLog: req.user});
 } catch (e) {
     console.log(e)
