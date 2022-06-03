@@ -6,7 +6,7 @@ body {
     color: #eee;
 }
 
-.register-div h1 {
+.nc-div h1 {
     font-size: 3.5vw;
     color: #eee;
     margin-left: 6vw;
@@ -14,18 +14,18 @@ body {
     letter-spacing: 1.25px;
 }
 
-.register-div form {
+.nc-div form {
     margin-left: 6vw;
     margin-top: 2.5vw;
 }
 
-.register-div form label {
+.nc-div form label {
     color: #16e16e;
     font-size: 1.5vw;
     margin-bottom: 2vw;
 }
 
-.register-div form input {
+.nc-div form input {
     width: 30vw;
     padding: 1vw;
     margin-top: 1.3vw;
@@ -39,10 +39,10 @@ body {
     transition: all 0.5s ease; 
     font-size: 1.25vw;
 }
-.register-div form input::placeholder{
+.nc-div form input::placeholder{
     color: #eee;
 }
-.register-div form input:focus{
+.nc-div form input:focus{
     outline: none;
     border-bottom: 2px solid #16e16e;
 }

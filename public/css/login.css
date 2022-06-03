@@ -68,3 +68,9 @@ body {
       transform: rotate(360deg);
     }
   }
+.nc {
+  color: #16e16e;
+  margin-left: 5.2vw;
+  text-decoration: none;
+  font-size: 1.3vw;
+}

@@ -27,6 +27,12 @@ try {
                     checkbox: {
                         equals: false
                     }
+                }, 
+                { 
+                    property: "isNC",
+                    checkbox: {
+                        equals: false
+                    }
                 }
             ]
         },

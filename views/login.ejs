@@ -25,19 +25,24 @@
             <button type="submit" id="logBtn">Login</button> <br>
         </form>
     </div>
-    
+    <br><br>
+    <a href="/nc">
+        <p class="nc"> Register as Non Competitive instead? (Only for Non-AISG46 Students)</p>
+    </a>
+
 </body>
 <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
 <script src="js/login.js"></script>
 <script>
     var button = document.querySelector('#logBtn')
-    function load(){
-        this.disabled= true;
+
+    function load() {
+        this.disabled = true;
         this.innerHTML = `
             <div class="loader">
             </div>
         `
-        this.style.cursor="not-allowed";
+        this.style.cursor = "not-allowed";
     }
     button.addEventListener('click', load)
 </script>

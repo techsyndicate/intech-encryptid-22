@@ -30,13 +30,7 @@ try {
             "status": "error",
             "message": "Passwords do not match"
         });
-    } 
-    else if (password.length < 6) {
-        return res.send({
-            "status": "error",
-            "message": "Password must be at least 6 characters long"
-        });
-    } 
+    }
     else if (email.includes('@') === false) {
         return res.send({
             "status": "error",
@@ -169,15 +163,14 @@ try {
                             }
                         ]
                     },
-                    isAdmin: {
-                        checkbox: {
-                            checked: false
-                        }
-                    },
+                    isAdmin: { 
+                        checkbox: false
+                    }, 
                     isBanned: {
-                        checkbox: {
-                            checked: false
-                        }
+                        checkbox: false,
+                    },
+                    isNC: { 
+                        checkbox: false
                     }
                 }
             }); 
@@ -297,6 +290,169 @@ router.get('/logout', (req,res)=> {
     res.clearCookie('token')
     req.user = null
     res.redirect('/')
+})
+
+
+router.get('/nc', (req,res)=> {  
+    res.render('nc',{userLog: req.user})
+})
+
+router.post('/auth/nc', async (req,res)=> { 
+try { 
+    const email = req.body.email;
+    const password = req.body.password;
+    const cpassword = req.body.cpassword;
+    const name= req.body.name;
+    const displayName = req.body.displayName;
+    if (!email || !password || !cpassword) {
+        return res.send({
+            status: 'error',
+            message: 'Please fill all the fields'
+        })
+    }
+    if(password !== cpassword) {
+        return res.send({
+            "status": "error",
+            "message": "Passwords do not match"
+        });
+    }
+    else if (email.includes('@') === false) {
+        return res.send({
+            "status": "error",
+            "message": "Please enter a valid email"
+        });
+    }
+    else {
+        // bcyrpt password
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+        // check if user exists 
+        const userCheck = await notion.databases.query({ 
+            database_id: dbId,
+            filter: {
+                and: [ 
+                    {
+                        property: 'email',
+                        title: { 
+                            equals: email
+                        }
+                    }
+                ]
+            }
+        })
+        if(userCheck.results.length > 0) {
+            return res.send({
+                "status": "error",
+                "message": "User already exists"
+            });
+        }
+    }
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+    // create user
+    try {
+        const user = await notion.pages.create({ 
+            parent: { database_id: dbId },
+            properties: {
+                title: {
+                    title: [
+                        {
+                            text: {
+                                content: email
+                            }
+                        }
+                    ]    
+                },
+                Name: {
+                    rich_text: [
+                        {
+                            text: {
+                                content: name
+                            }
+                        }
+                    ]
+
+                },
+                password: {
+                    rich_text: [
+                        {
+                            text: {
+                                content: hashedPassword
+                            }
+                        }
+                    ]
+                },
+                displayName: {
+                    rich_text: [
+                        {
+                            text: {
+                                content: displayName
+                            }
+                        }
+                    ]
+                },
+                currentLevel: {
+                    rich_text: [
+                        {
+                            text: {
+                                content: '1'
+                            }
+                        }
+                    ]
+                },
+                points: {
+                    rich_text: [
+                        {
+                            text: {
+                                content: "0"
+                            }
+                        }
+                    ]
+                },
+                isAdmin: {
+                    checkbox: false
+        
+                },  
+                isBanned: {
+                    checkbox: false
+                },
+                isNC: {  
+                    checkbox: true
+                }
+            }
+        }); 
+        // jwt auth
+        const token = jwt.sign({ 
+            email: email,
+        }, jwt_token)
+        res.cookie('token', token)
+        req.user= {
+            email, 
+            name, 
+            displayName
+        }
+        return res.send({
+            "status": "success",
+            "message": "User created successfully"
+        });
+    } catch (err) {
+        console.log(err)
+        SendMessage(err.stack.toString())
+        return res.send({
+            "status": "error",
+            "message": "Some error occurred"
+        })
+    }
+} catch (err) {
+    console.log(err)
+    SendMessage(err.stack.toString())
+            SendMessage('The server has crashed')
+    return res.send({
+        "status": "error",
+        "message": "Some error occurred"
+    }) 
+}
+         
 })
 
 module.exports = router
