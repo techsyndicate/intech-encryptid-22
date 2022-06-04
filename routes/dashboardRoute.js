@@ -121,7 +121,11 @@ try {
     
     const currentLevel = user1.properties.currentLevel.rich_text[0].text.content
     const currentPoints = user1.properties.points.rich_text[0].text.content
-    if (currentLevel == maxLevel) {
+
+    const levels = await notion.databases.query({
+        database_id: levelId})
+    const maxLevels = levels.results.length
+    if (currentLevel == maxLevels) {
         return res.send({  
             status: 'over'
         })

@@ -2,6 +2,7 @@ const axios = require('axios')
 
 module.exports = {
     SendMessage: async (content) => {
+        if (process.env.NODE_ENV === 'PRODUCTION') {
             await axios({ 
                 method: 'post',
                 url: process.env.DISCORD_WEBHOOK_URL,
@@ -9,5 +10,8 @@ module.exports = {
             }).then((res)=> {}).catch((err)=>{
                 console.log(err)
             })
+    }  else {
+        
     }
+}
 }
