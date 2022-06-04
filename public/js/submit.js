@@ -3,16 +3,13 @@ const subBtn = document.getElementById('subBtn')
 
 
 
-
-
-
 subBtn.addEventListener("click",  (e) => {
     e.preventDefault();
     const data = {
         answer : document.getElementById('answer').value,
         level: document.getElementById('level').value
     }
-    answers(document.getElementById('answer').value)
+    console.log(document.getElementById('answer').value)
     fetch('/submit', {
         method: 'POST',
         headers: {
