@@ -36,7 +36,7 @@
         <% if (level.file.rich_text[0]) { %>
         <a class="file" target="_blank" href='<%= level.file.rich_text[0].text.content%>'>File</a>
         <% } %>
-        <form id="ansForm">
+        <form id="ansForm" onsubmit="load()">
             <input name="level" id="level" value="<%= level.level.rich_text[0].text.content %>" hidden>
             <input type="text" name="answer" id="answer" required autocomplete="off" placeholder="Answer"> <br>
             <div>
