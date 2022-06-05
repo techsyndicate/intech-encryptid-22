@@ -46,7 +46,7 @@ try {
     const user = userN.results[0]
     const currentLevel = user.properties.currentLevel.rich_text[0].text.content 
     if (currentLevel == maxLevels + 1) { 
-        res.redirect('/finish')
+       return res.redirect('/finish')
     }
     const levelN = await notion.databases.query({
         database_id: levelId,
@@ -66,7 +66,7 @@ try {
     res.render('dashboard', {level,userLog: req.user});
 } catch (e) {
     console.log(e)
-    SendMessage(err.stack.toString())
+    SendMessage(e.stack.toString())
     SendMessage('The server has crashed')
     res.redirect('/')
 }

@@ -9,8 +9,8 @@ router.get("/", (req, res) => {
 })
 
 router.get('/leaderboard', async (req,res)=> { 
-try {
-
+try {   
+    const userLog = req.user;
     const dbId = process.env.NOTION_DB_ID
     const usersN = await notion.databases.query({
         database_id: dbId,
@@ -52,6 +52,7 @@ try {
             currentLevel: user.properties.currentLevel.rich_text[0].text.content,
         }
     })
+    console.log(userLog)
     res.render('leaderboard', {users,userLog: req.user})
 } catch (err) {
     console.log(err)
