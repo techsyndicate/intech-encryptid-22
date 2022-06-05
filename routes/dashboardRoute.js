@@ -45,7 +45,7 @@ try {
     })
     const user = userN.results[0]
     const currentLevel = user.properties.currentLevel.rich_text[0].text.content 
-    if (currentLevel == maxLevels) { 
+    if (currentLevel == maxLevels + 1) { 
         res.redirect('/finish')
     }
     const levelN = await notion.databases.query({
