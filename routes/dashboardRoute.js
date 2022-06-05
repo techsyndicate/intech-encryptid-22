@@ -72,7 +72,7 @@ try {
     const maxLevel = process.env.MAX_LEVEL
     const levelId = process.env.DB_3_ID
     const userDbId= process.env.NOTION_DB_ID
-    const answer = req.body.answer.replace(/\s/g, '');
+    const answer = req.body.answer.replace(/\s/g, '').toLowerCase();
     const level = req.body.level;
     const canswer = await notion.databases.query({ 
         database_id: levelId,
