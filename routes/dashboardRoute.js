@@ -24,9 +24,12 @@ try {
     //     return res.render('post/dashboard',{userLog: req.user})
     // } 
     const userEmail = req.user.email;
-    
+
     const levelId = process.env.DB_3_ID 
     const userDbId = process.env.NOTION_DB_ID
+    const levels = await notion.databases.query({
+        database_id: levelId})
+    const maxLevels = levels.results.length;
     const userN = await notion.databases.query({
         database_id: userDbId,
         filter: {
@@ -42,6 +45,9 @@ try {
     })
     const user = userN.results[0]
     const currentLevel = user.properties.currentLevel.rich_text[0].text.content 
+    if (currentLevel == maxLevels) { 
+        res.redirect('/finish')
+    }
     const levelN = await notion.databases.query({
         database_id: levelId,
         filter: {
