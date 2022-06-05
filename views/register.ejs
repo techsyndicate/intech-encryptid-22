@@ -46,6 +46,11 @@
             </div>
         `
         this.style.cursor = "not-allowed";
+        setTimeout(() => {
+            this.disabled = false;
+            this.innerHTML = "Register";
+            this.style.cursor = "pointer";
+        }, 7000);
     }
     button.addEventListener('click', load)
 </script>

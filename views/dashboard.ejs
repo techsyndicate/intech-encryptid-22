@@ -14,6 +14,30 @@
 
 <body>
     <%- include('./partials/nav.ejs') %>
+    <div class="loader">
+        <svg version="1.1" id="L1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
+            <circle fill="none" stroke="#16e16e" stroke-width="6" stroke-miterlimit="15" stroke-dasharray="14.2472,14.2472" cx="50" cy="50" r="47" >
+              <animateTransform 
+                 attributeName="transform" 
+                 attributeType="XML" 
+                 type="rotate"
+                 dur="5s" 
+                 from="0 50 50"
+                 to="360 50 50" 
+                 repeatCount="indefinite" />
+          </circle>
+          <circle fill="none" stroke="#16e16e" stroke-width="1" stroke-miterlimit="10" stroke-dasharray="10,10" cx="50" cy="50" r="39">
+              <animateTransform 
+                 attributeName="transform" 
+                 attributeType="XML" 
+                 type="rotate"
+                 dur="5s" 
+                 from="0 50 50"
+                 to="-360 50 50" 
+                 repeatCount="indefinite" />
+          </circle>
+        </svg>        
+    </div>
     <div class="dashboard">
         <h1>Level <span> #<%= level.level.rich_text[0].text.content%> </span>
         </h1>
@@ -39,5 +63,10 @@
 </body>
 <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
 <script src="js/submit.js"></script>
-
+<script>
+    var loader = document.querySelector('.loader');
+    window.onload= setTimeout(function(){
+        loader.style.display = 'none';
+    },1500);
+</script>
 </html>

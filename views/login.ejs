@@ -15,27 +15,28 @@
 <body>
     <%- include('./partials/nav.ejs') %>
 
-    <div class="login-div">
-        <h1>Login</h1>
-        <form id="logForm">
-            <label for="email"> Email </label> <br>
-            <input name="email" id="email" type="email" autocomplete="off" required placeholder="john.doe@ais.amity.edu"> <br>
-            <label for="password">Password:</label> <br>
-            <input name="password" id="password" type="password" placeholder="john1234" autocomplete="off" required> <br>
-            <button type="submit" id="logBtn">Login</button> <br>
-        </form>
-    </div>
-    <br><br>
-    <a href="/nc" class="nc">
-       Register as Non Competitive instead? (Only for Non-AISG46 Students)
-    </a>
+        <div class="login-div">
+            <h1>Login</h1>
+            <form id="logForm">
+                <label for="email"> Email </label> <br>
+                <input name="email" id="email" type="email" autocomplete="off" required
+                    placeholder="john.doe@ais.amity.edu"> <br>
+                <label for="password">Password:</label> <br>
+                <input name="password" id="password" type="password" placeholder="john1234" autocomplete="off" required>
+                <br>
+                <button type="submit" id="logBtn">Login</button> <br>
+            </form>
+        </div>
+        <br><br>
+        <a href="/nc" class="nc">
+            Register as Non Competitive instead? (Only for Non-AISG46 Students)
+        </a>
 
 </body>
 <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
 <script src="js/login.js"></script>
 <script>
     var button = document.querySelector('#logBtn')
-
     function load() {
         this.disabled = true;
         this.innerHTML = `
@@ -43,8 +44,14 @@
             </div>
         `
         this.style.cursor = "not-allowed";
+        setTimeout(() => {
+            this.disabled = false;
+            this.innerHTML = "Login";
+            this.style.cursor = "pointer";
+        }, 7000);
     }
     button.addEventListener('click', load)
+    
 </script>
 
 </html>

@@ -9,7 +9,6 @@ h1 {
     margin-left: 5vw;
     color: #16e16e;
     font-size: 3.5vw;
-    margin-top: -1.5vw;
 }
 
 .user {
@@ -20,6 +19,7 @@ h1 {
     font-family: 'Outfit', sans-serif;
     border-radius: 15px;
     margin-left: 5vw;
+    margin-bottom: 2.5vw;
 }
 
 .user span {
