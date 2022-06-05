@@ -2,14 +2,65 @@ const express = require('express');
 const router = express.Router();
 const {Client} = require('@notionhq/client');
 const notion = new Client({auth: process.env.NOTION_TOKEN});
+const jwt = require('jsonwebtoken');
 const { SendMessage } = require('../services/errorReporting');
+const jwt_token = process.env.JWT_TOKEN
 
-router.get("/", (req, res) => {
-    res.render("index",{userLog: req.user});
+router.get("/", async (req, res) => {
+    if (req.cookies.token) {
+        const token = req.cookies.token
+    
+        const decoded = jwt.verify(token, jwt_token);
+            const user = await notion.databases.query({
+                database_id: process.env.NOTION_DB_ID,
+                filter: {
+                    and: [
+                        {
+                            property: 'email',
+                            title: {
+                                equals: decoded.email
+                            }
+                        }
+                    ]
+                }
+            })
+        if (user) {
+            req.user =  {
+                email: user.results[0].properties.email.title[0].plain_text, 
+                name: user.results[0].properties.Name.rich_text[0].text.content,
+                displayName: user.results[0].properties.displayName.rich_text[0].text.content
+            }
+        }
+    }
+    return res.render("index",{userLog: req.user});
 })
 
 router.get('/leaderboard', async (req,res)=> { 
 try {   
+    if (req.cookies.token) {
+        const token = req.cookies.token
+        const decoded = jwt.verify(token, jwt_token);
+            const user = await notion.databases.query({
+                database_id: process.env.NOTION_DB_ID,
+                filter: {
+                    and: [
+                        {
+                            property: 'email',
+                            title: {
+                                equals: decoded.email
+                            }
+                        }
+                    ]
+                }
+            })
+        if (user) {
+            req.user =  {
+                email: user.results[0].properties.email.title[0].plain_text, 
+                name: user.results[0].properties.Name.rich_text[0].text.content,
+                displayName: user.results[0].properties.displayName.rich_text[0].text.content
+            }
+        }
+    }
     const userLog = req.user;
     const dbId = process.env.NOTION_DB_ID
     const usersN = await notion.databases.query({
@@ -62,7 +113,31 @@ try {
 }
 })
 
-router.get('/banned', (req,res) => { 
+router.get('/banned', async (req,res) => { 
+    if (req.cookies.token) {
+        const token = req.cookies.token
+        const decoded = jwt.verify(token, jwt_token);
+            const user = await notion.databases.query({
+                database_id: process.env.NOTION_DB_ID,
+                filter: {
+                    and: [
+                        {
+                            property: 'email',
+                            title: {
+                                equals: decoded.email
+                            }
+                        }
+                    ]
+                }
+            })
+        if (user) {
+            req.user =  {
+                email: user.results[0].properties.email.title[0].plain_text, 
+                name: user.results[0].properties.Name.rich_text[0].text.content,
+                displayName: user.results[0].properties.displayName.rich_text[0].text.content
+            }
+        }
+    }
     const userLog = req.user
     res.render('banned', {userLog})
 })
