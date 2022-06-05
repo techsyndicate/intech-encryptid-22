@@ -131,11 +131,7 @@ try {
     const levels = await notion.databases.query({
         database_id: levelId})
     const maxLevels = levels.results.length
-    if (currentLevel == maxLevels) {
-        return res.send({  
-            status: 'over'
-        })
-    }
+    
     const nextLevel = parseInt(currentLevel) + 1
     const nextPoints = parseInt(currentPoints) + 100
 
@@ -170,6 +166,11 @@ try {
         isCorrect: true
     })
     await newAnswer.save();
+    if (currentLevel == maxLevels) {
+        return res.send({  
+            status: 'over'
+        })
+    }
     return res.send({
         status: 'success',
         message: 'Answer is correct'
