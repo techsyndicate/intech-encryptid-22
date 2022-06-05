@@ -6,6 +6,7 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const {checkUser } = require('../services/authServices')
 const {SendMessage} = require('../services/errorReporting')
+const axios = require('axios')
 
 const dbId = process.env.NOTION_DB_ID
 const jwt_token = process.env.JWT_TOKEN
@@ -453,6 +454,76 @@ try {
     }) 
 }
          
+})
+
+router.get('/forgot',async (req,res)=> { 
+    if (req.cookies.token) {
+        const token = req.cookies.token
+    
+        const decoded = jwt.verify(token, jwt_token);
+            const user = await notion.databases.query({
+                database_id: process.env.NOTION_DB_ID,
+                filter: {
+                    and: [
+                        {
+                            property: 'email',
+                            title: {
+                                equals: decoded.email
+                            }
+                        }
+                    ]
+                }
+            })
+        if (user) {
+            req.user =  {
+                email: user.results[0].properties.email.title[0].plain_text, 
+                name: user.results[0].properties.Name.rich_text[0].text.content,
+                displayName: user.results[0].properties.displayName.rich_text[0].text.content
+            }
+        }
+    }
+    const userLog = req.user
+    res.render('forgot',{userLog})
+})
+
+router.post('/auth/forgot', async (req,res)=> {
+try { 
+    const email = req.body.email 
+    await axios(`https://intech.techsyndicate.us/forgot/${email}`, { 
+        method: 'GET',
+    }).then(response => {response.json()})
+    .then(data=> {  
+        switch (data.success) {
+            case true: 
+                return res.send({
+                    "status": "success",
+                    "message": "Email sent successfully"
+                })
+                break;
+            case false:
+                if (data.msg == "there was a problem sending the email!") {
+                    return res.send({
+                        "status": "error",
+                        "message": "Some Error Occurred while sending the email"
+                    })
+                } else {
+                    return res.send({
+                        "status": "error", 
+                        "message": "Email is invalid. Please check again"
+                    })
+                }
+            default:
+                break;       
+        }
+    })
+} catch (e) {
+    console.log(e)
+    SendMessage(e.stack.toString())
+    res.send({
+        "status": "error",
+        "message": "Some error occurred"
+    })
+}
 })
 
 module.exports = router

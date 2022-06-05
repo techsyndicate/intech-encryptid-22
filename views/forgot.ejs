@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="/css/login.css">
+    <title>Forgot Password</title>
+    <link rel="stylesheet" href="/css/forgot.css">
     <link rel="shortcut icon" href="./assets/ts.png" type="image/x-icon">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
@@ -14,31 +14,19 @@
 
 <body>
     <%- include('./partials/nav.ejs') %>
-
-    <div class="login-div">
-        <h1>Login</h1>
-        <form id="logForm">
+    <div class="forgot-div">
+        <h1>Forgot Password</h1>
+        <form id="forgotForm">
             <label for="email"> Email </label> <br>
-            <input name="email" id="email" type="email" autocomplete="off" required placeholder="john.doe@ais.amity.edu"> <br>
-            <label for="password">Password:</label> <br>
-            <input name="password" id="password" type="password" placeholder="john1234" autocomplete="off" required>
-            <br>
-            <button type="submit" id="logBtn">Login</button> <br>
+            <input name="email" id="email" type="email" autocomplete="off" required placeholder="Same as inTech Registration"> <br>
+            <button type="submit" id="forgotBtn">Submit</button>
         </form>
     </div>
-    <br><br>
-    <a href="/nc" class="nc">
-        Register as Non Competitive instead? (Only for Non-AISG46 Students)
-    </a>
-    <a href="/forgot">
-        <p class="forgot">Forgot Password?</p>
-    </a>
-
 </body>
 <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
-<script src="js/login.js"></script>
+<script type="module" src="js/register.js"></script>
 <script>
-    var button = document.querySelector('#logBtn')
+    var button = document.querySelector('#forgotBtn')
 
     function load() {
         this.disabled = true;
@@ -49,7 +37,7 @@
         this.style.cursor = "not-allowed";
         setTimeout(() => {
             this.disabled = false;
-            this.innerHTML = "Login";
+            this.innerHTML = "Submit";
             this.style.cursor = "pointer";
         }, 7000);
     }

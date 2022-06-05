@@ -1,55 +1,61 @@
 <style>
-    .nav{
-    display: flex;
-    padding: 2.5vw;
-    align-items: center;
-}
-.nav img{
-    width: 5vw;
-    height: 5vw;
-}
-.nav-links{
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    margin-left: auto;
-}
-.nav-links a{
-    text-decoration: none;
-    color: white;
-    font-size: 1.5vw;
-    letter-spacing: 1px;
-    margin-right: 1vw;
-    text-decoration: none;
-    cursor: pointer;
-    color: #eee;
-    transition: all 0.5s ease;
-}
-.nav-links a:after{
-    content : '';
-    display: block;
-    width: 0;
-    height:2.5px;
-    transition: all 0.5s ease;
-    background: #16e16e;
-}
-.nav-links a:hover:after{
-    width: 100%;
-}
-button{
-    background: #16e16e;
-    border: none;
-    font-family: 'Outfit', sans-serif;
-    font-size: 1.35vw;
-    padding-left: 1.75vw;
-    padding-right: 1.75vw;
-    padding-top: 0.5vw;
-    padding-bottom: 0.5vw;
-    cursor: pointer;
-    border-radius: 25px;
-    letter-spacing: 1.25px;
-    margin-right: 1vw;
-}
+    .nav {
+        display: flex;
+        padding: 2.5vw;
+        align-items: center;
+    }
+
+    .nav img {
+        width: 5vw;
+        height: 5vw;
+    }
+
+    .nav-links {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        margin-left: auto;
+    }
+
+    .nav-links a {
+        text-decoration: none;
+        color: white;
+        font-size: 1.5vw;
+        letter-spacing: 1px;
+        margin-right: 1vw;
+        text-decoration: none;
+        cursor: pointer;
+        color: #eee;
+        transition: all 0.5s ease;
+    }
+
+    .nav-links a:after {
+        content: '';
+        display: block;
+        width: 0;
+        height: 2.5px;
+        transition: all 0.5s ease;
+        background: #16e16e;
+    }
+
+    .nav-links a:hover:after {
+        width: 100%;
+    }
+
+    button {
+        background: #16e16e;
+        border: none;
+        font-family: 'Outfit', sans-serif;
+        font-size: 1.35vw;
+        padding-left: 1.75vw;
+        padding-right: 1.75vw;
+        padding-top: 0.5vw;
+        padding-bottom: 0.5vw;
+        cursor: pointer;
+        border-radius: 25px;
+        letter-spacing: 1.25px;
+        margin-right: 1vw;
+    }
 </style>
 <div class="nav">
     <div class="nav-logo">
@@ -58,10 +64,12 @@ button{
         </a>
     </div>
     <div class="nav-links">
-        
+
         <% if (userLog) {%>
-            <a href="/dashboard">Dashboard</a>
-            <a href="/user" >Profile</a>
+        <a href="/leaderboard">Leaderboard</a>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/user">Profile</a>
+
         <%}else{%>
         <a href="/leaderboard">Leaderboard</a>
         <button onclick="button1()">Register</button>
@@ -70,13 +78,15 @@ button{
     </div>
 </div>
 <script>
-    function button1(){
+    function button1() {
         window.location.href = '/register';
     }
-    function button2(){
+
+    function button2() {
         window.location.href = '/login';
     }
-    function button3(){
+
+    function button3() {
         window.location.href = '/logout';
     }
 </script>
