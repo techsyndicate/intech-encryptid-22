@@ -62,7 +62,8 @@ try {
 })
 
 router.get('/banned', (req,res) => { 
-    res.render('banned')
+    const userLog = req.user
+    res.render('banned', {userLog})
 })
 
 module.exports= router;

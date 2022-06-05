@@ -57,6 +57,7 @@ try {
 router.post('/admin/ban', checkUser, isAdmin, async (req,res)=> {
 try {
     const email = req.body.email;
+
     const userN = await notion.databases.query({
         database_id: process.env.NOTION_DB_ID,
         filter: {
@@ -91,6 +92,7 @@ try {
 
 router.post('/admin/unban', checkUser, isAdmin, async (req,res)=> {
     const email = req.body.email
+    const userLog = req.user
     const userN = await notion.databases.query({
         database_id: process.env.NOTION_DB_ID,
         filter: {
@@ -114,7 +116,7 @@ router.post('/admin/unban', checkUser, isAdmin, async (req,res)=> {
                 }
             }
     })
-    res.redirect('/admin')
+    res.redirect('/admin', {userLog})
 })
 
 router.get('/answers/level/:level', checkUser, isAdmin, async (req,res)=> {
