@@ -116,7 +116,7 @@ router.post('/admin/unban', checkUser, isAdmin, async (req,res)=> {
                 }
             }
     })
-    res.redirect('/admin', {userLog})
+    res.redirect('/admin',)
 })
 
 router.get('/answers/level/:level', checkUser, isAdmin, async (req,res)=> {
