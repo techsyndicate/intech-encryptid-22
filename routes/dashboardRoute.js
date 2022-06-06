@@ -14,10 +14,10 @@ router.get("/dashboard", checkUser, banCheck, async (req, res) => {
     const today = new Date();
     const startDate = new Date(2021, 6, 7);
     const endDate = new Date(2021, 6, 8);
-    if (today < startDate) {
+    if (today > startDate) {
       console.log("before");
       return res.render("pre/dashboard", { userLog: req.user });
-    } else if (today > endDate) {
+    } else if (today < endDate) {
       console.log("after");
       return res.render("post/dashboard", { userLog: req.user });
     }
