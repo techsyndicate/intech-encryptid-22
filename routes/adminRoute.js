@@ -9,8 +9,7 @@ const Answer = require("../schema/answerSchema");
 const { SendMessage } = require("../services/errorReporting");
 
 router.get("/answers", checkUser, isAdmin, async (req, res) => {
-  const answers = await Answer.find({});
-
+  const answers = await Answer.find({}).sort({ createdAt: -1 });
   res.render("admin/answers", { answers, userLog: req.user });
 });
 
