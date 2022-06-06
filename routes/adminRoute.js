@@ -66,6 +66,7 @@ router.get("/admin", checkUser, isAdmin, async (req, res) => {
         displayName: user.properties.displayName.rich_text[0].text.content,
         currentLevel: user.properties.currentLevel.rich_text[0].text.content,
         isBanned: user.properties.isBanned.checkbox,
+        isNC: user.properties.isNC.checkbox,
       };
     });
 
