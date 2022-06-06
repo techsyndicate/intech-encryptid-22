@@ -81,7 +81,6 @@ router.get("/admin", checkUser, isAdmin, async (req, res) => {
 router.post("/admin/ban", checkUser, isAdmin, async (req, res) => {
   try {
     const email = req.body.email;
-
     const userN = await notion.databases.query({
       database_id: process.env.NOTION_DB_ID,
       filter: {
