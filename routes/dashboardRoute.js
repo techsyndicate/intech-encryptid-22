@@ -91,7 +91,7 @@ router.post("/submit", checkUser, banCheck, async (req, res) => {
         ],
       },
     });
-
+    console.log(canswer);
     const correctAnswer =
       canswer.results[0].properties.answer.rich_text[0].text.content;
     const isCorrect = answer === correctAnswer;

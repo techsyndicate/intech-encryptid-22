@@ -468,13 +468,18 @@ router.get("/forgot", async (req, res) => {
         ],
       },
     });
-    if (user) {
+    if (user.length < 1) {
       req.user = {
         email: user.results[0].properties.email.title[0].plain_text,
         name: user.results[0].properties.Name.rich_text[0].text.content,
         displayName:
           user.results[0].properties.displayName.rich_text[0].text.content,
       };
+    } else {
+      return res.send({
+        status: "error",
+        message: "User does not exist",
+      });
     }
   }
   const userLog = req.user;

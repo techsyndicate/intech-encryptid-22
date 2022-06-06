@@ -24,7 +24,7 @@ router.get("/", async (req, res) => {
         ],
       },
     });
-    if (user) {
+    if (user.length < 1) {
       req.user = {
         email: user.results[0].properties.email.title[0].plain_text,
         name: user.results[0].properties.Name.rich_text[0].text.content,
@@ -54,7 +54,7 @@ router.get("/leaderboard", async (req, res) => {
           ],
         },
       });
-      if (user) {
+      if (user.length < 1) {
         req.user = {
           email: user.results[0].properties.email.title[0].plain_text,
           name: user.results[0].properties.Name.rich_text[0].text.content,
@@ -132,7 +132,7 @@ router.get("/banned", async (req, res) => {
         ],
       },
     });
-    if (user) {
+    if (user.length < 1) {
       req.user = {
         email: user.results[0].properties.email.title[0].plain_text,
         name: user.results[0].properties.Name.rich_text[0].text.content,
