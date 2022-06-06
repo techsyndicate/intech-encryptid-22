@@ -1,7 +1,7 @@
 var notyf = new Notyf();
 const forgotBtn = document.getElementById('forgotBtn');
 
-regBtn.addEventListener('click', (e)=> { 
+forgotBtn.addEventListener('click', (e)=> { 
     e.preventDefault();
     const email = document.getElementById('email').value;
     const data =  {
