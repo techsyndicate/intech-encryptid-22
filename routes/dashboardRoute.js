@@ -11,7 +11,6 @@ const { SendMessage } = require("../services/errorReporting");
 router.get("/dashboard", checkUser, banCheck, async (req, res) => {
   try {
     const userEmail = req.user.email;
-
     const levelId = process.env.DB_3_ID;
     const userDbId = process.env.NOTION_DB_ID;
     const levels = await notion.databases.query({
@@ -64,14 +63,6 @@ router.get("/dashboard", checkUser, banCheck, async (req, res) => {
 
 router.post("/submit", checkUser, banCheck, async (req, res) => {
   try {
-    const today = new Date();
-    const startDate = new Date(2021, 6, 7);
-    const endDate = new Date(2021, 6, 8);
-    if (today > startDate) {
-      return res.send(404);
-    } else if (today < endDate) {
-      return res.send(404);
-    }
     const maxLevel = process.env.MAX_LEVEL;
     const levelId = process.env.DB_3_ID;
     const userDbId = process.env.NOTION_DB_ID;
