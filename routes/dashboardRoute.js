@@ -10,14 +10,14 @@ const { SendMessage } = require("../services/errorReporting");
 
 router.get("/dashboard", checkUser, banCheck, async (req, res) => {
   try {
-    const today = new Date();
-    const startDate = new Date(2021, 6, 7);
-    const endDate = new Date(2021, 6, 8);
-    if (today > startDate) {
-      return res.render("pre/dashboard", { userLog: req.user });
-    } else if (today < endDate) {
-      return res.render("post/dashboard", { userLog: req.user });
-    }
+    // const today = new Date();
+    // const startDate = new Date(2021, 6, 7);
+    // const endDate = new Date(2021, 6, 8);
+    // if (today > startDate) {
+    //   return res.render("pre/dashboard", { userLog: req.user });
+    // } else if (today < endDate) {
+    //   return res.render("post/dashboard", { userLog: req.user });
+    // }
     const userEmail = req.user.email;
 
     const levelId = process.env.DB_3_ID;
