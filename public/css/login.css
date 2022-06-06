@@ -76,7 +76,8 @@ body {
 }
 .forgot {
   color: #16e16e;
-    margin-left: 5.2vw;
+  margin-left: 5.2vw;
+  margin-top: 2vw;
     text-decoration: none;
     font-size: 1.3vw;
 }
