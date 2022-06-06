@@ -44,6 +44,7 @@ router.get("/dashboard", checkUser, banCheck, async (req, res) => {
     if (currentLevel == maxLevels + 1) {
       return res.redirect("/finish");
     }
+    console.log(currentLevel);
     const levelN = await notion.databases.query({
       database_id: levelId,
       filter: {
@@ -57,6 +58,7 @@ router.get("/dashboard", checkUser, banCheck, async (req, res) => {
         ],
       },
     });
+    console.log(levelN);
     const level = levelN.results[0].properties;
     console.log(level);
     res.render("dashboard", { level, userLog: req.user });

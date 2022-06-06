@@ -25,10 +25,13 @@
         </svg>
     </div>
     <div class="dashboard">
+
         <h1>Level <span> #<%= level.level.rich_text[0].text.content%> </span>
         </h1>
-
+        <% if (level.question.rich_text[0]) { %>
         <p class="ques"> <%= level.question.rich_text[0].text.content %> </p>
+        <% } %>
+
         <% if (level.image.rich_text[0]) { %>
         <img src="<%= level.image.rich_text[0].text.content  %> ">
         <% } %>
@@ -75,4 +78,6 @@
 
 
 </html>
+<% if (level.codeComment.rich_text[0]) { %>
 <!-- <%= level.codeComment.rich_text[0].text.content %>-->
+<% } %>

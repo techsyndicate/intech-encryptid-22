@@ -146,4 +146,12 @@ router.get("/banned", async (req, res) => {
   res.render("banned", { userLog });
 });
 
+router.get("/apollo13", (req, res) => {
+  res.redirect("https://imgur.com/gallery/pK4QV9s");
+});
+
+router.get("/shamballa", (req, res) => {
+  res.redirect("https://pastebin.com/pucrhmX4");
+});
+
 module.exports = router;
