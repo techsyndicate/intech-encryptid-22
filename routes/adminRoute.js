@@ -73,7 +73,7 @@ router.get("/admin", checkUser, isAdmin, async (req, res) => {
   } catch (err) {
     console.log(err);
     SendMessage(err.stack.toString());
-    SendMessage("The server has crashed");
+
     res.render("error", { userLog: req.user });
   }
 });
@@ -109,7 +109,7 @@ router.post("/admin/ban", checkUser, isAdmin, async (req, res) => {
   } catch (err) {
     console.log(err);
     SendMessage(err.stack.toString());
-    SendMessage("The server has crashed");
+
     res.render("error", { userLog: req.user });
   }
 });

@@ -199,7 +199,6 @@ router.post("/auth/reg", async (req, res) => {
   } catch (err) {
     console.log(err);
     SendMessage(err.stack.toString());
-    SendMessage("The server has crashed");
     return res.send({
       status: "error",
       message: "Some error occurred",
@@ -278,7 +277,6 @@ router.post("/auth/login", async (req, res) => {
   } catch (err) {
     console.log(err);
     SendMessage(err.stack.toString());
-    SendMessage("The server has crashed");
     return res.send({
       status: "error",
       message: "Some error occurred",
@@ -445,7 +443,6 @@ router.post("/auth/nc", async (req, res) => {
   } catch (err) {
     console.log(err);
     SendMessage(err.stack.toString());
-    SendMessage("The server has crashed");
     return res.send({
       status: "error",
       message: "Some error occurred",

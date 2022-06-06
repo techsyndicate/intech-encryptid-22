@@ -66,7 +66,7 @@ router.get("/dashboard", checkUser, banCheck, async (req, res) => {
   } catch (e) {
     console.log(e);
     SendMessage(e.stack.toString());
-    SendMessage("The server has crashed");
+
     res.redirect("/");
   }
 });
@@ -178,7 +178,7 @@ router.post("/submit", checkUser, banCheck, async (req, res) => {
   } catch (err) {
     console.log(err);
     SendMessage(err.stack.toString());
-    SendMessage("The server has crashed");
+
     return res.send({
       status: "error",
       message: "Something went wrong",
@@ -211,7 +211,7 @@ router.get("/user", checkUser, banCheck, async (req, res) => {
   } catch (e) {
     console.log(e);
     SendMessage(err.stack.toString());
-    SendMessage("The server has crashed");
+
     res.redirect("/");
   }
 });
