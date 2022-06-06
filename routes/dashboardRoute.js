@@ -97,7 +97,9 @@ router.post("/submit", checkUser, banCheck, async (req, res) => {
         ],
       },
     });
-    const level = levelN.results[0].properties.level.rich_text[0].text.content;
+    console.log(levelN.results[0].properties);
+    const level =
+      levelN.results[0].properties.currentLevel.rich_text[0].text.content;
     const canswer = await notion.databases.query({
       database_id: levelId,
       filter: {

@@ -29,7 +29,7 @@
         <h1>Level <span> #<%= level.level.rich_text[0].text.content%> </span>
         </h1>
         <% if (level.question.rich_text[0]) { %>
-        <p class="ques"> <%= level.question.rich_text[0].text.content %> </p>
+        <p class="ques"> <%- level.question.rich_text[0].text.content %> </p>
         <% } %>
 
         <% if (level.image.rich_text[0]) { %>
