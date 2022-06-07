@@ -72,7 +72,7 @@ router.post("/submit", checkUser, banCheck, async (req, res) => {
     const maxLevel = process.env.MAX_LEVEL;
     const levelId = process.env.DB_3_ID;
     const userDbId = process.env.NOTION_DB_ID;
-    const answer = req.body.answer.replace(/^\s+|\s+$/gm, "").toLowerCase();
+    const answer = req.body.answer.replace(/\s/g, "").toLowerCase();
     console.log(answer);
     const levelN = await notion.databases.query({
       database_id: userDbId,
