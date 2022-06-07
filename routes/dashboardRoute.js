@@ -62,6 +62,13 @@ router.get("/dashboard", checkUser, banCheck, async (req, res) => {
 });
 
 router.post("/submit", checkUser, banCheck, async (req, res) => {
+  console.log(req.body.answer);
+  if (req.body.answer == "") {
+    return res.send({
+      status: "error",
+      message: "Please enter an answer",
+    });
+  }
   try {
     const maxLevel = process.env.MAX_LEVEL;
     const levelId = process.env.DB_3_ID;
