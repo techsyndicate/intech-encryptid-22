@@ -145,7 +145,7 @@ router.post("/admin/unban", checkUser, isAdmin, async (req, res) => {
 router.get("/answers/level/:level", checkUser, isAdmin, async (req, res) => {
   const answers = await Answer.find({
     level: req.params.level,
-  });
+  }).sort({ createdAt: -1 });
 
   res.render("admin/answers", { answers, userLog: req.user });
 });
@@ -153,7 +153,7 @@ router.get("/answers/level/:level", checkUser, isAdmin, async (req, res) => {
 router.get("/answers/user/:userEmail", checkUser, isAdmin, async (req, res) => {
   const answers = await Answer.find({
     userEmail: req.params.userEmail,
-  });
+  }).sort({ createdAt: -1 });
 
   res.render("admin/answers", { answers, userLog: req.user });
 });
