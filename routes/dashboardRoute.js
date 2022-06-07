@@ -62,7 +62,6 @@ router.get("/dashboard", checkUser, banCheck, async (req, res) => {
 });
 
 router.post("/submit", checkUser, banCheck, async (req, res) => {
-  console.log(req.body.answer);
   if (req.body.answer == "") {
     return res.send({
       status: "error",
@@ -73,7 +72,8 @@ router.post("/submit", checkUser, banCheck, async (req, res) => {
     const maxLevel = process.env.MAX_LEVEL;
     const levelId = process.env.DB_3_ID;
     const userDbId = process.env.NOTION_DB_ID;
-    const answer = req.body.answer.replace(/\s/g, "").toLowerCase();
+    const answer = req.body.answer.replace(/^\s+|\s+$/gm, "").toLowerCase();
+    console.log(answer);
     const levelN = await notion.databases.query({
       database_id: userDbId,
       filter: {
@@ -87,7 +87,7 @@ router.post("/submit", checkUser, banCheck, async (req, res) => {
         ],
       },
     });
-    console.log(levelN.results[0].properties);
+
     const level =
       levelN.results[0].properties.currentLevel.rich_text[0].text.content;
     const canswer = await notion.databases.query({
@@ -103,7 +103,7 @@ router.post("/submit", checkUser, banCheck, async (req, res) => {
         ],
       },
     });
-    console.log(canswer);
+
     const correctAnswer =
       canswer.results[0].properties.answer.rich_text[0].text.content;
     const isCorrect = answer === correctAnswer;
