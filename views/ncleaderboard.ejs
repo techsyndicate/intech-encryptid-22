@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/ncleaderboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="shortcut icon" href="../assets/ts.png" type="image/x-icon">
+    <style>
+        .nav {
+            display: flex;
+            padding: 2.5vw;
+            align-items: center;
+        }
+
+        .nav img {
+            width: 5vw;
+            height: 5vw;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-left: auto;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            font-size: 1.5vw;
+            letter-spacing: 1px;
+            margin-right: 1vw;
+            text-decoration: none;
+            cursor: pointer;
+            color: #eee;
+            transition: all 0.5s ease;
+        }
+
+        .nav-links a:after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 2.5px;
+            transition: all 0.5s ease;
+            background: #16e16e;
+        }
+
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+
+        button {
+            background: #16e16e;
+            border: none;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.35vw;
+            padding-left: 1.75vw;
+            padding-right: 1.75vw;
+            padding-top: 0.5vw;
+            padding-bottom: 0.5vw;
+            cursor: pointer;
+            border-radius: 25px;
+            letter-spacing: 1.25px;
+            margin-right: 1vw;
+        }
+    </style>
+    <title> NC Leaderboard</title>
+</head>
+
+<body>
+    <div class="nav">
+        <div class="nav-logo">
+            <a href="/">
+                <img src="../assets/ts.png" alt="logo">
+            </a>
+        </div>
+        <div class="nav-links">
+
+            <% if (userLog) {%>
+            <a href="/leaderboard">Leaderboard</a>
+            <a href="/nc/leaderboard">NC Leaderboard</a>
+            <a href="/dashboard">Dashboard</a>
+            <a href="/user">Profile</a>
+
+            <%}else{%>
+            <a href="/leaderboard">Leaderboard</a>
+            <a href="/nc/leaderboard">NC Leaderboard</a>
+            <button onclick="button1()">Register</button>
+            <button onclick="button2()">Login</button>
+            <% } %>
+        </div>
+    </div>
+    <div class="leaderboard-div">
+        <h1>Non Competitive Leaderboard</h1>
+        <input type="text" id="search" placeholder="Search users" autocomplete="off" onkeyup="search()">
+        <table id="users-table">
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Points</th>
+            </tr>
+            <tbody>
+                <% for( let i = 0; i < users.length; i++ ) { %>
+                <tr>
+                    <td><%= i+1 %></td>
+                    <td>
+                        <% if (users[i].points == 1000) { %>
+                        <i class="fa-solid fa-user-crown" style="color: white;"></i>
+                        <% } %>
+                        <%= users[i].name %></td>
+                    <td><%= users[i].points %></td>
+                </tr>
+                <% } %>
+            </tbody>
+
+        </table>
+    </div>
+</body>
+<script>
+    function search() {
+        let input = document.querySelector('#search');
+        let table = document.querySelector('#users-table');
+        let tr = table.getElementsByTagName('tr');
+        let td;
+        for (let i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName('td')[1];
+            if (td) {
+                if (td.innerHTML.toUpperCase().indexOf(input.value.toUpperCase()) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+<script>
+    function button1() {
+        window.location.href = '/register';
+    }
+
+    function button2() {
+        window.location.href = '/login';
+    }
+
+    function button3() {
+        window.location.href = '/logout';
+    }
+</script>
+<script src="https://kit.fontawesome.com/0c15efcf9c.js" crossorigin="anonymous"></script>
+
+</html>

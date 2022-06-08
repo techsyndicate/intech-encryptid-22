@@ -14,7 +14,7 @@
 <body>
     <%- include('./partials/nav.ejs') %>
     <div class="leaderboard-div">
-        <h1>Leaderboard</h1>
+        <h1>Competitive Leaderboard</h1>
         <input type="text" id="search" placeholder="Search users" autocomplete="off" onkeyup="search()">
         <table id="users-table">
             <tr>
@@ -24,27 +24,27 @@
             </tr>
             <tbody>
                 <% for( let i = 0; i < users.length; i++ ) { %>
-                    <tr>
-                        <td><%= i+1 %></td>
-                        <td><%= users[i].name %></td>
-                        <td><%= users[i].points %></td>
-                    </tr>
-                <% } %>   
+                <tr>
+                    <td><%= i+1 %></td>
+                    <td><%= users[i].name %></td>
+                    <td><%= users[i].points %></td>
+                </tr>
+                <% } %>
             </tbody>
-            
+
         </table>
-    </div>      
+    </div>
 </body>
 <script>
-    function search(){
+    function search() {
         let input = document.querySelector('#search');
         let table = document.querySelector('#users-table');
         let tr = table.getElementsByTagName('tr');
         let td;
-        for(let i = 0; i < tr.length; i++){
+        for (let i = 0; i < tr.length; i++) {
             td = tr[i].getElementsByTagName('td')[1];
-            if(td){
-                if(td.innerHTML.toUpperCase().indexOf(input.value.toUpperCase()) > -1){
+            if (td) {
+                if (td.innerHTML.toUpperCase().indexOf(input.value.toUpperCase()) > -1) {
                     tr[i].style.display = "";
                 } else {
                     tr[i].style.display = "none";
@@ -53,4 +53,5 @@
         }
     }
 </script>
+
 </html>
