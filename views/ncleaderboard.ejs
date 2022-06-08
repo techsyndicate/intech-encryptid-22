@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/ncleaderboard.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="shortcut icon" href="../assets/ts.png" type="image/x-icon">
     <style>
         .nav {
@@ -71,85 +73,114 @@
 </head>
 
 <body>
-    <div class="nav">
-        <div class="nav-logo">
-            <a href="/">
-                <img src="../assets/ts.png" alt="logo">
-            </a>
-        </div>
-        <div class="nav-links">
-
-            <% if (userLog) {%>
-            <a href="/leaderboard">Leaderboard</a>
-            <a href="/nc/leaderboard">NC Leaderboard</a>
-            <a href="/dashboard">Dashboard</a>
-            <a href="/user">Profile</a>
-
-            <%}else{%>
-            <a href="/leaderboard">Leaderboard</a>
-            <a href="/nc/leaderboard">NC Leaderboard</a>
-            <button onclick="button1()">Register</button>
-            <button onclick="button2()">Login</button>
-            <% } %>
-        </div>
-    </div>
+    <%- include('./partials/nav.ejs') %>
     <div class="leaderboard-div">
         <h1>Non Competitive Leaderboard</h1>
-        <input type="text" id="search" placeholder="Search users" autocomplete="off" onkeyup="search()">
         <table id="users-table">
-            <tr>
-                <th>#</th>
-                <th>Name</th>
-                <th>Points</th>
-            </tr>
             <tbody>
-                <% for( let i = 0; i < users.length; i++ ) { %>
                 <tr>
-                    <td><%= i+1 %></td>
-                    <td>
-                        <% if (users[i].points == 1000) { %>
-                        <i class="fa-solid fa-user-crown" style="color: white;"></i>
-                        <% } %>
-                        <%= users[i].name %></td>
-                    <td><%= users[i].points %></td>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Points</th>
                 </tr>
-                <% } %>
+            </tbody>
+            <tbody>
+
+                <tr>
+                    <td>1</td>
+                    <td>
+
+                        <i class="fa-solid fa-user-crown" style="color: white;"></i>
+
+                        Prakhar Khurana</td>
+                    <td>1000</td>
+                </tr>
+
+                <tr>
+                    <td>2</td>
+                    <td>
+
+                        hmmm</td>
+                    <td>700</td>
+                </tr>
+
+                <tr>
+                    <td>3</td>
+                    <td>
+
+                        kshitij kapoor</td>
+                    <td>600</td>
+                </tr>
+
+                <tr>
+                    <td>4</td>
+                    <td>
+
+                        Kabir Bhalla</td>
+                    <td>600</td>
+                </tr>
+
+                <tr>
+                    <td>5</td>
+                    <td>
+
+                        Nishit Jain</td>
+                    <td>500</td>
+                </tr>
+
+                <tr>
+                    <td>6</td>
+                    <td>
+
+                        Sparkfeast</td>
+                    <td>400</td>
+                </tr>
+
+                <tr>
+                    <td>7</td>
+                    <td>
+
+                        Aditya Sharma</td>
+                    <td>400</td>
+                </tr>
+
+                <tr>
+                    <td>8</td>
+                    <td>
+
+                        Varun Sharma</td>
+                    <td>400</td>
+                </tr>
+
+                <tr>
+                    <td>9</td>
+                    <td>
+
+                        shubhan agrawal</td>
+                    <td>300</td>
+                </tr>
+
+                <tr>
+                    <td>10</td>
+                    <td>
+
+                        gauri mishra</td>
+                    <td>0</td>
+                </tr>
+
+                <tr>
+                    <td>11</td>
+                    <td>
+
+                        Pranjli Aggarwal</td>
+                    <td>0</td>
+                </tr>
+
             </tbody>
 
         </table>
     </div>
 </body>
-<script>
-    function search() {
-        let input = document.querySelector('#search');
-        let table = document.querySelector('#users-table');
-        let tr = table.getElementsByTagName('tr');
-        let td;
-        for (let i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName('td')[1];
-            if (td) {
-                if (td.innerHTML.toUpperCase().indexOf(input.value.toUpperCase()) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
-            }
-        }
-    }
-</script>
-<script>
-    function button1() {
-        window.location.href = '/register';
-    }
-
-    function button2() {
-        window.location.href = '/login';
-    }
-
-    function button3() {
-        window.location.href = '/logout';
-    }
-</script>
 <script src="https://kit.fontawesome.com/0c15efcf9c.js" crossorigin="anonymous"></script>
 
 </html>

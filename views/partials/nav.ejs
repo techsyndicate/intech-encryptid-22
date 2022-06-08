@@ -60,35 +60,12 @@
 <div class="nav">
     <div class="nav-logo">
         <a href="/">
-            <img src="./assets/ts.png" alt="logo">
+            <img src="/assets/ts.png" alt="logo">
         </a>
     </div>
     <div class="nav-links">
-
-        <% if (userLog) {%>
         <a href="/leaderboard">Leaderboard</a>
         <a href="/nc/leaderboard">NC Leaderboard</a>
-        <a href="/dashboard">Dashboard</a>
-        <a href="/user">Profile</a>
 
-        <%}else{%>
-        <a href="/leaderboard">Leaderboard</a>
-        <a href="/nc/leaderboard">NC Leaderboard</a>
-        <button onclick="button1()">Register</button>
-        <button onclick="button2()">Login</button>
-        <% } %>
     </div>
 </div>
-<script>
-    function button1() {
-        window.location.href = '/register';
-    }
-
-    function button2() {
-        window.location.href = '/login';
-    }
-
-    function button3() {
-        window.location.href = '/logout';
-    }
-</script>
